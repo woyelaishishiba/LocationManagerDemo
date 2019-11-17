@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">LocationDemo</string>
+    <string name="get_permission">获取位置权限</string>
+    <string name="amap_get_location">通过高德SDK获取位置</string>
+    <string name="amap_stop_get_location">取消</string>
+    <string name="get_location">通过Android原生回调获取位置</string>
+    <string name="stop_get_location">取消</string>
+</resources>
