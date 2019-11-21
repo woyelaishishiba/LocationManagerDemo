@@ -1,5 +1,6 @@
 package com.example.marvel.locationdemo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
@@ -15,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
     Button getPermission;
     @BindView(R.id.myGetLocation)
     Button myGetLocation;
+    @BindView(R.id.showMap)
+    Button showMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,9 +28,9 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.aMapGetLocation)
     public void aMapGetLocation() {
-        if (AMapLocationCore.getInstance(getApplicationContext()).getRegOrUnreg() == 0){
+        if (AMapLocationCore.getInstance(getApplicationContext()).getRegOrUnreg() == 0) {
             aMapGetLocation.setText(R.string.amap_stop_get_location);
-        }else {
+        } else {
             aMapGetLocation.setText(R.string.amap_get_location);
         }
         AMapLocationCore.getInstance(getApplicationContext()).startGetLocation();
@@ -40,11 +43,18 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.myGetLocation)
     public void myGetLocation() {
-        if (LocationCore.getInstance(MainActivity.this).getRegOrUnreg() == 0){
+        if (LocationCore.getInstance(MainActivity.this).getRegOrUnreg() == 0) {
             myGetLocation.setText(R.string.stop_get_location);
-        }else {
+        } else {
             myGetLocation.setText(R.string.get_location);
         }
         LocationCore.getInstance(MainActivity.this).getLocation();
+    }
+
+    @OnClick(R.id.showMap)
+    public void showMap() {
+        Intent intent = new Intent(MainActivity.this, ShowMapActivity.class);
+        intent.setAction("com.example.marvel.locationdemo.ShowActivity");
+        startActivity(intent);
     }
 }

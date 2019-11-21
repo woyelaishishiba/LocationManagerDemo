@@ -58,7 +58,7 @@ public class LocationCore {
         gpsListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-                Log.d("Android接口", location.getLongitude() + ", " + location.getLatitude());
+                Log.e("Android接口", location.getLongitude() + ", " + location.getLatitude());
             }
 
             @Override

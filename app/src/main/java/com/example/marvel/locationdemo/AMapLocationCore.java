@@ -7,6 +7,7 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.amap.api.maps2d.LocationSource;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -43,8 +44,6 @@ public class AMapLocationCore {
         mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
         mLocationOption.setInterval(2000);
         mLocationClient.setLocationOption(mLocationOption);
-        mLocationClient.setApiKey("********************************");
-        mLocationClient.setLocationListener(mAMapLocationListener);
     }
 
     public static AMapLocationCore getInstance(Context context) {
@@ -67,9 +66,33 @@ public class AMapLocationCore {
         changeListener();
     }
 
+    public void activate(final LocationSource.OnLocationChangedListener onLocationChangedListener) {
+        AMapLocationListener mapListener = new AMapLocationListener() {
+            @Override
+            public void onLocationChanged(AMapLocation aMapLocation) {
+                if (aMapLocation != null
+                        && aMapLocation.getErrorCode() == 0) {
+                    Log.d("activate onLocationChanged",
+                            aMapLocation.getLatitude() + ", " + aMapLocation.getLongitude());
+                    onLocationChangedListener.onLocationChanged(aMapLocation);
+                } else {
+                    String errText = "定位失败," + aMapLocation.getErrorCode() + ": " + aMapLocation.getErrorInfo();
+                    Log.e("AmapErr", errText);
+                }
+            }
+        };
+        mLocationClient.setLocationListener(mapListener);
+        mLocationClient.startLocation();
+    }
+
+    public void deactivate() {
+        mLocationClient.stopLocation();
+    }
+
     private void changeListener() {
         if (regOrUnreg.get() == 0) {
             mLocationClient.startLocation();
+            mLocationClient.setLocationListener(mAMapLocationListener);
             regOrUnreg.getAndIncrement();
         } else {
             mLocationClient.stopLocation();
