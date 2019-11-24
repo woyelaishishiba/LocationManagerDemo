@@ -23,4 +23,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/get_location" />
+
+    <Button
+        android:id="@+id/showMap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/show_map" />
+
 </LinearLayout>

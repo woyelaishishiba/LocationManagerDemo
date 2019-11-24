@@ -5,4 +5,5 @@
     <string name="amap_stop_get_location">取消</string>
     <string name="get_location">通过Android原生回调获取位置</string>
     <string name="stop_get_location">取消</string>
+    <string name="show_map">显示地图</string>
 </resources>
